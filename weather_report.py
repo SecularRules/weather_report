@@ -1,11 +1,11 @@
-#Dataset: Eerste was niet goed, deze denk ik wel: nog niet kunnen checken: https://dataplatform.knmi.nl/dataset/harmonie-arome-cy43-p1-1-0
-#API access: https://api.dataplatform.knmi.nl/open-data/v1/datasets/harmonie_arome_cy43_p1/versions/1.0/files
-#Dataset name: harmonie_arome_cy43_p1
-#Dataset version: 1.0
-#API key is eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6IjRlMWQzNmVlYjc0NjQ0NzNhZjIyM2QyYzY4Mjk1OTRhIiwiaCI6Im11cm11cjEyOCJ9
-#GRIB - decoder needed?: https://confluence.ecmwf.int/display/ECC
+# Dataset: Eerste was niet goed, deze denk ik wel: nog niet kunnen checken: https://dataplatform.knmi.nl/dataset/harmonie-arome-cy43-p1-1-0
+# API access: https://api.dataplatform.knmi.nl/open-data/v1/datasets/harmonie_arome_cy43_p1/versions/1.0/files
+# Dataset name: harmonie_arome_cy43_p1
+# Dataset version: 1.0
+# API key is eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6IjRlMWQzNmVlYjc0NjQ0NzNhZjIyM2QyYzY4Mjk1OTRhIiwiaCI6Im11cm11cjEyOCJ9
+# GRIB - decoder needed?: https://confluence.ecmwf.int/display/ECC
 
-#it does download the file for me now, but it's just the copied example..
+# it does download the file for me now, but it's just the copied example..
 
 import logging
 import os
@@ -16,6 +16,7 @@ import requests
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(os.environ.get("LOG_LEVEL", logging.INFO))
+
 
 class OpenDataAPI:
     def __init__(self, api_token: str):
@@ -71,7 +72,9 @@ def main():
 
     # fetch the download url and download the file
     response = api.get_file_url(dataset_name, dataset_version, latest_file)
-    download_file_from_temporary_download_url(response["temporaryDownloadUrl"], latest_file)
+    download_file_from_temporary_download_url(
+        response["temporaryDownloadUrl"], latest_file
+    )
 
 
 if __name__ == "__main__":
