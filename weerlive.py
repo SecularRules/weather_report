@@ -10,31 +10,33 @@
 
 import requests
 
-test = "https://weerlive.nl/api/weerlive_api_v2.php?key=4dba58d15a&locatie=Amsterdam"
+#test = "https://weerlive.nl/api/weerlive_api_v2.php?key=4dba58d15a&locatie=Amsterdam"
 
-base_url = "https://weerlive.nl/api/weerlive_api_v2.php?key=4dba58d15a&locatie="
+base_url = "https://weerlive.nl/api/weerlive_api_v2.php"
 
+key = "4dba58d15a"
 plaatsnaam = "Amsterdam"
 # Get different responses with placenames, but also get responses with random strings. How to check if its an actual hit?
 
+params = {"locatie": plaatsnaam, "key": key}
 
-def get_weather_info(plaatsnaam):
-    url = f"{base_url}{plaatsnaam}"
-    response = requests.get(url)
+def get_weather_info(params):
+    response = requests.get(base_url, params = params)
     if response.status_code == 200:
         weather_data = response.json()
+        #print(weather_data)
         return weather_data
     else:
         print(f"failed to retrieve data {response.status_code}")
 
 
-weather_report = get_weather_info(plaatsnaam)
+weather_report = get_weather_info(params)
 
-if weather_report:
-    print(f"{weather_report['liveweer'][0]['plaats']}")
+if liveweer := weather_report.get("liveweer"):
+    print(f"{liveweer[0]['plaats']}")
     print(
-        f"Het is {weather_report['liveweer'][0]['temp']} graden, maar het voelt als {weather_report['liveweer'][0]['gtemp']}"
+        f"Het is {liveweer[0]['temp']} graden, maar het voelt als {liveweer[0]['gtemp']}"
     )
-    print(f"Het weer: {weather_report['liveweer'][0]['samenv']}")
-    print(f"Verwachting: {weather_report['liveweer'][0]['verw']}")
-    print(f"Waarschuwingen: {weather_report['liveweer'][0]['ltekst']}")
+    print(f"Het weer: {liveweer[0]['samenv']}")
+    print(f"Verwachting: {liveweer[0]['verw']}")
+    print(f"Waarschuwingen: {liveweer[0]['ltekst']}")
