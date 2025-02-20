@@ -1,3 +1,10 @@
+[tool.ruff]
+lint.extend-select = ["C4", "SIM"]
+lint.ignore = []
+show-fixes = true
+
+
+
 [project]
 name = "weather-report"
 version = "0.1.0"
