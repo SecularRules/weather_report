@@ -1,7 +1,14 @@
+#read through some ruff stuff, this seems good enough? lots of rules by default
+#and line length on top of it with these bits. Anything else needed?
 [tool.ruff]
-lint.extend-select = ["C4", "SIM"]
-lint.ignore = []
-show-fixes = true
+# Set the maximum line length to 100.
+line-length = 100
+
+[tool.ruff.lint]
+# Add the `line-too-long` rule to the enforced rule set. By default, Ruff omits rules that
+# overlap with the use of a formatter, like Black, but we can override this behavior by
+# explicitly adding the rule.
+extend-select = ["E501"]
 
 
 
